@@ -1,0 +1,42 @@
+# Local raw / derived data (never publish without permission)
+data/*
+!data/.gitkeep
+!data/raw/
+data/raw/*
+!data/raw/.gitkeep
+
+# Data files anywhere in the repo (safety net outside data/)
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.zip
+*.gz
+
+# Secrets and environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+secrets*
+.claude/settings.local.json
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+Thumbs.db
+
+# Large model artifacts and local outputs
+models/
+artifacts/
+*.pkl
+*.joblib
+*.parquet
+*.feather
