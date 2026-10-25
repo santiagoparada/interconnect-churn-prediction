@@ -1,13 +1,13 @@
 # Interconnect · Churn Prediction
 
 **Proyecto final de Data Science · TripleTen**  
-**Estado:** Sprint 0 — infraestructura y documentación, sin análisis ejecutado.  
+**Estado:** Sprint 1 en curso — EDA de `contract.csv` y primer clustering retrospectivo cerrados; tablas de servicios y datos personales pendientes. Sin modelos supervisados.  
 **Enfoque:** comprender primero a los clientes; formular hipótesis, contrastarlas y solo después modelar.  
 **Metodología:** CRISP-DM, iterativa, organizada en sprints con criterios de cierre.
 
 ## Problema
 
-Interconnect busca identificar clientes con riesgo de cancelar el servicio, para apoyar decisiones de retención. El entregable académico requiere clasificación binaria, comparación de al menos dos modelos base sin balanceo, tratamiento de desbalance/ajuste, evaluación con **AUC-ROC como métrica principal y Recall como adicional**, y un informe orientado a negocio. **No hay resultados aún.**
+Interconnect busca identificar clientes con riesgo de cancelar el servicio, para apoyar decisiones de retención. El entregable académico requiere clasificación binaria, comparación de al menos dos modelos base sin balanceo, tratamiento de desbalance/ajuste, evaluación con **AUC-ROC como métrica principal y Recall como adicional**, y un informe orientado a negocio. **Aún no hay resultados de modelado**; los hallazgos exploratorios de `contract.csv` están en `PROJECT_CONTEXT.md` (sección 11).
 
 ## Principios del trabajo
 
@@ -27,7 +27,16 @@ Interconnect busca identificar clientes con riesgo de cancelar el servicio, para
 | `personal.csv` | ¿Una fila por cliente? ¿Qué atributos personales contiene? |
 | `phone.csv` | ¿Solo clientes con telefonía? ¿Cómo se superpone con internet? |
 
-Origen en TripleTen: `/datasets/final_provider/`. Las tablas **no han sido inspeccionadas localmente**. El distinto número de filas puede deberse a cobertura de servicios, pero debe verificarse con la clave de cliente.
+Origen en TripleTen: `/datasets/final_provider/`. Copia local en `data/raw/` (los cuatro CSV, **excluidos de Git**; no se modifican). `contract.csv` está investigado en profundidad; las otras tres tablas solo tienen la auditoría estructural inicial. El distinto número de filas puede deberse a cobertura de servicios, pero debe verificarse con la clave de cliente.
+
+## Notebooks
+
+| Notebook | Estado | Propósito |
+|---|---|---|
+| `notebooks/01_contract_eda_clustering.ipynb` | Cerrado (2026-10-24) | Auditoría estructural de las cuatro fuentes, EDA contractual, análisis económico de los 1.869 desertores y clustering K-Means exploratorio (k = 3). Hito independiente: no se reescribe. Sus clusters son perfiles retrospectivos, no probabilidades de abandono. |
+| `notebooks/02_eda_servicios.ipynb` | Previsto | EDA individual de `internet.csv` y `phone.csv`, antes de cualquier unión. |
+
+**Ejecución en VS Code:** abrir la carpeta `interconnect-churn-prediction/`, abrir el notebook, seleccionar el kernel de Python configurado (entorno `base`, con pandas, numpy, matplotlib, scipy y scikit-learn) y ejecutar **Restart Kernel → Run All**. El notebook busca los CSV mediante rutas relativas en `data/raw/`, tanto desde la raíz del proyecto como desde `notebooks/`.
 
 ## Preguntas de investigación
 
@@ -64,7 +73,7 @@ interconnect-churn-prediction/
 ├── requirements.txt              # se completa cuando conozcamos dependencias
 ├── data/
 │   └── raw/                      # CSV originales, ignorados por Git
-├── notebooks/                     # experimentos pedagógicos, uno por objetivo
+├── notebooks/                     # un notebook por investigación (01_ cerrado)
 ├── src/                           # utilidades reutilizables cuando hagan falta
 ├── reports/
 │   └── figures/
@@ -82,4 +91,4 @@ interconnect-churn-prediction/
 4. Revisar cambios (`git status`, `git diff`), hacer commits temáticos y **push solo con aprobación**.
 5. Actualizar README, bitácora e hitos al cerrar cada sprint.
 
-**Siguiente acción:** Sprint 0, repositorio local inicializado en `interconnect-churn-prediction/` (ver `PROJECT_CONTEXT.md`), revisar `.gitignore` y preparar la importación manual de CSV sin publicarlos.
+**Siguiente acción:** Sprint 1, crear `notebooks/02_eda_servicios.ipynb` para estudiar `internet.csv` y `phone.csv` individualmente; después `personal.csv` y, en Sprint 2, la cobertura de `customerID` entre tablas.

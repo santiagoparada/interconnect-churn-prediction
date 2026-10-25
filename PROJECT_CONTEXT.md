@@ -1,7 +1,7 @@
 # Interconnect — Predicción de fuga de clientes (Churn)
 
 **Proyecto final de Data Science · TripleTen**  
-**Estado:** Inicio — comprensión del negocio y planificación de la exploración  
+**Estado:** Sprint 1 en curso — `contract.csv` investigado y cerrado en `notebooks/01_contract_eda_clustering.ipynb`; tablas de servicios y datos personales pendientes  
 **Ruta de trabajo local (Windows):** `E:\data tree\data science\tripleten bootcamp\sprint 19 proyecto final`  
 **Raíz del repositorio Git:** `interconnect-churn-prediction/` dentro de la ruta de trabajo (remoto: `interconnect-churn-prediction`)  
 **Responsable de guía técnica:** Senior Data Scientist con criterio de ingeniería de software y buenas prácticas de reproducibilidad.  
@@ -25,7 +25,7 @@ La plataforma de TripleTen contiene cuatro archivos en `/datasets/final_provider
 | `personal.csv` | Datos del cliente | ¿Hay una fila por cliente? |
 | `phone.csv` | Servicios telefónicos | ¿Incluye únicamente clientes con telefonía? |
 
-**Todavía no se ha inspeccionado ni validado el contenido de estos archivos.** No interpretar una tabla ausente como un dato faltante antes de comprobar su significado.
+Copia local en `data/raw/` (ignorada por Git). Hasta ahora solo `contract.csv` se ha investigado en profundidad (ver sección 11); `internet.csv`, `phone.csv` y `personal.csv` tienen únicamente la auditoría estructural inicial. No interpretar una tabla ausente como un dato faltante antes de comprobar su significado.
 
 ## 3. Preguntas de investigación — propuestas del estudiante
 
@@ -110,7 +110,7 @@ interconnect-churn-prediction/
 ├── data/
 │   └── raw/                         # CSV originales, fuera de Git si corresponde
 ├── notebooks/
-│   └── 01_eda_por_tabla.ipynb       # crear al iniciar exploración
+│   └── 01_contract_eda_clustering.ipynb   # hito cerrado: EDA contractual + clustering de desertores
 ├── src/                              # utilidades reutilizables cuando sean necesarias
 ├── reports/
 │   └── figures/                     # gráficos seleccionados
@@ -139,12 +139,13 @@ No crear carpetas ni módulos vacíos innecesarios. La estructura crecerá con l
 | Pendiente | Tipo de unión | Auditar claves y presencia/ausencia por tabla |
 | Pendiente | Construcción final de la variable objetivo | Verificar formato real de las fechas |
 | Pendiente | Series temporales o análisis de duración | Comprobar si existen registros históricos |
-| Pendiente | Clustering | Priorizar después de EDA y validar valor añadido |
+| Realizado (exploratorio) | Clustering retrospectivo de desertores | K-Means k = 3, Silhouette 0,513, ARI 1,000; perfiles descriptivos, no probabilidades (sección 11.4) |
+| Pendiente | Fecha de corte / extracción | `2020-02-01` es candidata, no confirmada |
 | Pendiente | Política de publicación de CSV | Verificar licencia y condiciones de TripleTen |
 
 ## 9. Próximo paso — sin adelantar soluciones
 
-**Preparar el proyecto local y realizar la primera auditoría estructural de los cuatro archivos, uno por uno.**
+**Estudiar individualmente `internet.csv` y `phone.csv` en `notebooks/02_eda_servicios.ipynb`, y después `personal.csv`, antes de cualquier unión.**
 
 Para cada tabla registrar:
 - Unidad de observación (qué representa una fila).
@@ -159,3 +160,40 @@ Solo después contrastar los conjuntos de IDs entre tablas y estudiar relaciones
 ## 10. Gobierno de sprints y milestones
 
 Consultar `README.md` para el mapa de M0 a M8, y `ROADMAP.md` para checklists y criterios de cierre. Cada cambio metodológico se registra en `docs/decision_log.md`; cada hipótesis en `docs/hypotheses.md`.
+
+## 11. Resultados consolidados — `contract.csv`
+
+Fuente: `notebooks/01_contract_eda_clustering.ipynb` (hito cerrado el 2026-10-24; código, orden de ejecución y salidas congelados). Cifras tomadas de las salidas guardadas.
+
+### 11.1 Población (hechos observados)
+- 7.043 clientes contractuales.
+- 1.869 cancelaciones registradas (`EndDate` distinto de `"No"`).
+- Prevalencia histórica de abandono: **26,5 %**.
+
+### 11.2 Calidad de datos (hechos observados)
+- `customerID` es único en `contract.csv`: 7.043 valores distintos, sin nulos ni repetidos.
+- `TotalCharges` presenta 11 valores representados mediante espacios; todos con `BeginDate = 2020-02-01` y sin baja. Permanecen sin imputar.
+- **Supuesto no confirmado:** `2020-02-01` es una posible referencia temporal, pero no ha sido confirmada como fecha oficial de extracción.
+
+### 11.3 Análisis económico de los desertores (hechos observados)
+- `TotalCharges` acumulado entre desertores: **2.862.926,90**.
+- Correlación entre permanencia final y `TotalCharges`: Pearson **0,954**; Spearman **0,971**.
+- Error porcentual absoluto mediano de `MonthlyCharges × meses` frente a `TotalCharges`: **1,77 %**.
+- El **94,17 %** de los desertores tiene un error absoluto igual o inferior al 10 %.
+
+### 11.4 Clustering retrospectivo (experimento exploratorio)
+- Algoritmo: K-Means.
+- Características: duración final hasta la baja y `MonthlyCharges`.
+- Estandarización: `StandardScaler`.
+- Clusters seleccionados: **3**.
+- Silhouette Score: **0,513**.
+- ARI: **1,000** en cinco inicializaciones (semillas 0, 21, 42, 99, 123).
+
+**Interpretación obligatoria:** los clusters son **perfiles retrospectivos de clientes que ya abandonaron**, no probabilidades de abandono. No se entrenaron con clientes activos, por lo que no discriminan entre quien se va y quien se queda.
+
+### 11.5 Limitaciones
+- El clustering incluye exclusivamente desertores.
+- La fecha de corte no está confirmada.
+- La duración final y el gasto acumulado a la fecha de baja **no son predictores válidos**: usarlos en el modelo supervisado introduciría fuga de información. Las características predictivas deberán definirse respecto a un corte temporal.
+- El ARI mide estabilidad frente a la inicialización, no robustez entre muestras ni espacios de características.
+- Las asociaciones con contrato o pago no implican causalidad.

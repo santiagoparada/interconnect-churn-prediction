@@ -12,19 +12,24 @@ El README contiene la vista ejecutiva. Este documento sirve para la operación d
 
 **Gate M0:** estructura reproducible y documentos visibles; no se han procesado datos.
 
-## Sprint 1 — EDA individual
-- [ ] Examinar `contract.csv`, `internet.csv`, `personal.csv` y `phone.csv` por separado.
-- [ ] Documentar dimensiones, columnas, tipos, valores ausentes y duplicados.
-- [ ] Determinar unidad de registro y unicidad de `customerID` (nombre sujeto a inspección).
-- [ ] Inspeccionar categorías reales y registrar supuestos sin resolver.
+## Sprint 1 — EDA individual  *(en curso)*
+- [x] Auditoría inicial de estructura de las cuatro fuentes (dimensiones, columnas, tipos, nulos, duplicados).
+- [x] Análisis individual profundizado de `contract.csv` (unicidad de `customerID`, `TotalCharges` con espacios, fechas, contrato, pago).
+- [x] Investigación económica de clientes que abandonaron.
+- [x] Primer clustering exploratorio de desertores, validado por silueta y ARI.
+- [x] Cierre documental de `notebooks/01_contract_eda_clustering.ipynb` (2026-10-24).
+- [ ] Exploración detallada de `internet.csv` y `phone.csv` (`02_eda_servicios.ipynb`).
+- [ ] Exploración detallada de `personal.csv`.
+- [ ] Inspeccionar categorías reales y registrar supuestos sin resolver en las tablas restantes.
 
-**Gate M1:** cuatro fichas completadas, código reproducible y primeros hallazgos separados de hipótesis.
+**Gate M1:** cuatro fichas completadas, código reproducible y primeros hallazgos separados de hipótesis. *Pendiente: solo `contract.csv` cumple el gate.*
 
 ## Sprint 2 — Universo de clientes y joins
-- [ ] Comparar claves y superposición entre tablas.
+- [ ] Comprobar relaciones y cobertura de `customerID` entre tablas.
 - [ ] Determinar qué significa que un cliente falte en una tabla de servicio.
 - [ ] Verificar cardinalidades antes de decidir cómo unir.
 - [ ] Documentar posibles nulos introducidos por join.
+- [ ] Construir la unión customer-level de las fuentes.
 
 **Gate M2:** universo de análisis y estrategia de join justificados.
 
@@ -33,7 +38,8 @@ El README contiene la vista ejecutiva. Este documento sirve para la operación d
 - [ ] Cargos, contratos, formas de pago, paperless billing.
 - [ ] Interacciones con atributos personales y duración.
 - [ ] Detección y revisión de atípicos, sin eliminarlos automáticamente.
-- [ ] Evaluar si clustering merece un experimento posterior.
+- [ ] Comparar los perfiles de desertores con clientes activos, con denominadores válidos.
+- [ ] Evaluar si clustering merece un experimento posterior. *(Primer experimento retrospectivo ya realizado en Sprint 1: describe desertores, no estima riesgo.)*
 
 **Gate M3:** hipótesis contrastadas mediante evidencia descriptiva y límites claros.
 
@@ -41,6 +47,7 @@ El README contiene la vista ejecutiva. Este documento sirve para la operación d
 - [ ] Definir Churn y fecha de referencia sin filtrar información futura.
 - [ ] Auditar nulos, categorías y variables de fechas.
 - [ ] Planear ingeniería de características; registrar definiciones.
+- [ ] Preparar características predictivas sin data leakage (excluir duración final y gasto acumulado a la fecha de baja).
 - [ ] Diseñar división train/validation/test y procesamiento sin leakage.
 
 **Gate M4:** preparación auditable y reproducible.
@@ -61,7 +68,7 @@ El README contiene la vista ejecutiva. Este documento sirve para la operación d
 **Gate M6:** candidato seleccionado y razones documentadas.
 
 ## Sprint 7 — Evaluación y reporte
-- [ ] Medir en test reservado una sola vez después de la selección.
+- [ ] Medir en test reservado una sola vez después de la selección (AUC-ROC principal, Recall adicional).
 - [ ] Interpretar AUC-ROC, Recall y errores operativos.
 - [ ] Discutir límites y recomendaciones para retención.
 - [ ] Verificar ejecución y consistencia del notebook completo.

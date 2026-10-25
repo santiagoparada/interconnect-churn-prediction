@@ -12,6 +12,21 @@ Formato: fecha | sprint | pregunta | evidencia disponible | decisión provisiona
 | 2026-10-21 | 0 | Raíz del repositorio | Archivos del proyecto en una subcarpeta; notas personales y `.zip` en la carpeta padre | Acordado: Git en `interconnect-churn-prediction/` (rama `main`), mismo nombre que el remoto; notas y `.zip` fuera del control de versiones | Primer commit documental |
 | 2026-10-21 | 0 | `.gitignore` | Solo `data/` excluía datos; un CSV en otra carpeta se habría publicado | Se ignoran `*.csv`, `*.xlsx`, `*.zip`, etc. en todo el repo, y archivos de credenciales | Verificar `git status` tras copiar CSV a `data/raw/` |
 | 2026-10-21 | 0 | Licencia | Proyecto educativo; datos propiedad de TripleTen | Pendiente: decidir antes de hacer público el repositorio | Elegir licencia de código/documentación |
+| 2026-10-24 | 1 | Cierre notebook 01 | 1.869 desertores; K-Means k = 3; Silhouette 0,513; ARI 1,000 | Final: conservar `01_contract_eda_clustering.ipynb` como investigación independiente congelada | `02_eda_servicios.ipynb` |
+
+## Entradas detalladas
+
+### 2026-10-24 · Sprint 1 · Cierre del EDA contractual y del primer clustering
+- **Pregunta:** ¿cómo conservar el análisis de `contract.csv` y el clustering retrospectivo sin mezclarlo con la preparación del modelo predictivo?
+- **Evidencia:** 1.869 desertores de 7.043 clientes (26,5 %); K-Means sobre duración final y `MonthlyCharges` estandarizadas, tres clusters, Silhouette 0,513 y estabilidad ARI 1,000 en cinco inicializaciones. Salidas guardadas en `notebooks/01_contract_eda_clustering.ipynb`.
+- **Opciones consideradas:** continuar en el mismo notebook con las demás tablas; congelarlo y abrir notebooks nuevos por investigación.
+- **Decisión y justificación:** conservar el análisis contractual y el primer clustering como investigación independiente, sin modificar código, orden ni salidas. Mantiene la trazabilidad, evita mezclar la investigación retrospectiva con la preparación del modelo predictivo y facilita comparaciones futuras. El archivo `01_contract_eda_clustering_cierre.ipynb` se renombró a su nombre definitivo sin alterar su contenido (SHA-256 idéntico).
+- **Riesgos / supuestos (limitaciones):**
+  - Clustering exclusivo de desertores: describe perfiles retrospectivos, no estima probabilidades de abandono.
+  - Fecha de corte no confirmada (`2020-02-01` es solo candidata).
+  - Riesgo de fuga de información si la duración final o el gasto acumulado a la fecha de baja se usan como predictores.
+  - El ARI mide estabilidad frente a la inicialización, no frente a otras muestras o características.
+- **Siguiente comprobación:** estudiar individualmente los servicios de internet y telefonía (`02_eda_servicios.ipynb`) antes de las uniones.
 
 ## Plantilla para nuevas entradas
 
