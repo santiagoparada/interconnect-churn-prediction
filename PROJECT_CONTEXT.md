@@ -1,7 +1,7 @@
 # Interconnect — Predicción de fuga de clientes (Churn)
 
 **Proyecto final de Data Science · TripleTen**  
-**Estado:** Sprint 1 en curso — `contract.csv` investigado y cerrado en `notebooks/01_contract_eda_clustering.ipynb`; tablas de servicios y datos personales pendientes  
+**Estado (2026-10-25):** EDA individual de las cuatro fuentes (notebooks 01–04) e integración multifuente ejecutada con los CSV reales (notebook 05). Sin modelos supervisados. Este documento conserva el contexto inicial y los resultados de `contract.csv`; el contrato operativo vigente está en `docs/PROJECT_CONTEXT.md`, las decisiones en `docs/DECISIONS.md` y el punto de continuación en `docs/HANDOFF_2026-10-25.md`.  
 **Ruta de trabajo local (Windows):** `E:\data tree\data science\tripleten bootcamp\sprint 19 proyecto final`  
 **Raíz del repositorio Git:** `interconnect-churn-prediction/` dentro de la ruta de trabajo (remoto: `interconnect-churn-prediction`)  
 **Responsable de guía técnica:** Senior Data Scientist con criterio de ingeniería de software y buenas prácticas de reproducibilidad.  

@@ -18,24 +18,24 @@ El README contiene la vista ejecutiva. Este documento sirve para la operación d
 - [x] Investigación económica de clientes que abandonaron.
 - [x] Primer clustering exploratorio de desertores, validado por silueta y ARI.
 - [x] Cierre documental de `notebooks/01_contract_eda_clustering.ipynb` (2026-10-24).
-- [ ] Exploración detallada de `internet.csv` y `phone.csv` (`02_eda_servicios.ipynb`).
-- [ ] Exploración detallada de `personal.csv`.
-- [ ] Inspeccionar categorías reales y registrar supuestos sin resolver en las tablas restantes.
+- [x] Exploración detallada de `internet.csv` (`02_eda_internet.ipynb`) y `phone.csv` (`03_eda_phone.ipynb`).
+- [x] Exploración detallada de `personal.csv` (`04_eda_personal.ipynb`; sección de conclusiones pendiente).
+- [ ] Inspeccionar categorías reales y registrar supuestos sin resolver en las tablas restantes (`docs/data_dictionary.md`).
 
-**Gate M1:** cuatro fichas completadas, código reproducible y primeros hallazgos separados de hipótesis. *Pendiente: solo `contract.csv` cumple el gate.*
+**Gate M1:** cuatro fichas completadas, código reproducible y primeros hallazgos separados de hipótesis. *Pendiente: conclusiones del notebook 04 y diccionario de datos.*
 
 ## Sprint 2 — Universo de clientes y joins
-- [ ] Comprobar relaciones y cobertura de `customerID` entre tablas.
-- [ ] Determinar qué significa que un cliente falte en una tabla de servicio.
-- [ ] Verificar cardinalidades antes de decidir cómo unir.
-- [ ] Documentar posibles nulos introducidos por join.
-- [ ] Construir la unión customer-level de las fuentes.
+- [x] Comprobar relaciones y cobertura de `customerID` entre tablas (notebook 05).
+- [x] Determinar qué significa que un cliente falte en una tabla de servicio (nulo estructural).
+- [x] Verificar cardinalidades antes de decidir cómo unir (`validate='one_to_one'`).
+- [x] Documentar posibles nulos introducidos por join.
+- [x] Construir la unión customer-level de las fuentes.
 
-**Gate M2:** universo de análisis y estrategia de join justificados.
+**Gate M2:** universo de análisis y estrategia de join justificados. *Evidencia ejecutada con datos reales; falta la conclusión escrita del responsable.*
 
 ## Sprint 3 — EDA de comportamientos
-- [ ] Servicios individuales, combinaciones y recuentos.
-- [ ] Cargos, contratos, formas de pago, paperless billing.
+- [x] Servicios individuales, combinaciones y recuentos (notebook 05, evidencia descriptiva).
+- [x] Cargos, contratos, formas de pago, paperless billing (notebook 05, evidencia descriptiva).
 - [ ] Interacciones con atributos personales y duración.
 - [ ] Detección y revisión de atípicos, sin eliminarlos automáticamente.
 - [ ] Comparar los perfiles de desertores con clientes activos, con denominadores válidos.

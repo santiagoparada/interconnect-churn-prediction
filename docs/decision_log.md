@@ -13,6 +13,9 @@ Formato: fecha | sprint | pregunta | evidencia disponible | decisión provisiona
 | 2026-10-21 | 0 | `.gitignore` | Solo `data/` excluía datos; un CSV en otra carpeta se habría publicado | Se ignoran `*.csv`, `*.xlsx`, `*.zip`, etc. en todo el repo, y archivos de credenciales | Verificar `git status` tras copiar CSV a `data/raw/` |
 | 2026-10-21 | 0 | Licencia | Proyecto educativo; datos propiedad de TripleTen | Pendiente: decidir antes de hacer público el repositorio | Elegir licencia de código/documentación |
 | 2026-10-24 | 1 | Cierre notebook 01 | 1.869 desertores; K-Means k = 3; Silhouette 0,513; ARI 1,000 | Final: conservar `01_contract_eda_clustering.ipynb` como investigación independiente congelada | `02_eda_servicios.ipynb` |
+| 2026-10-25 | 1 | Ampliación notebook 01 | Clustering de los 7.043 clientes (contrato, pago, facturación, cargo): k = 6, churn por cluster 4,18 %–53,42 % | Añadido como experimento B; el clustering A de desertores se conserva sin cambios | Contrastar con la integración |
+| 2026-10-25 | 1 | EDA individual de servicios y datos personales | `02_eda_internet`, `03_eda_phone`, `04_eda_personal` | Se usa un notebook por tabla en lugar del `02_eda_servicios.ipynb` previsto | Integración |
+| 2026-10-25 | 2–3 | Integración y EDA multifuente | Notebook 05 ejecutado con CSV reales: 7.043 clientes, cobertura completa internet ∪ teléfono, 28 columnas numéricas + `Churn`, K-Means k = 2 (silhouette 0,242) | Decisiones D01–D16 en `docs/DECISIONS.md`; resultados en `docs/VALIDACION_05.md` | Conclusiones del notebook 05; notebook 06 |
 
 ## Entradas detalladas
 
