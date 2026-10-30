@@ -1,11 +1,12 @@
-# Local raw / derived data (never publish without permission)
+# Local raw and derived data
 data/*
 !data/.gitkeep
+!data/README.md
 !data/raw/
 data/raw/*
 !data/raw/.gitkeep
 
-# Data files anywhere in the repo (safety net outside data/)
+# Data files anywhere in the repository
 *.csv
 *.tsv
 *.xlsx
@@ -13,7 +14,7 @@ data/raw/*
 *.zip
 *.gz
 
-# Secrets and environment
+# Secrets and local environments
 .env
 .env.*
 !.env.example
@@ -21,25 +22,25 @@ data/raw/*
 *.key
 credentials*.json
 secrets*
-.claude/settings.local.json
 .venv/
 venv/
+
+# Python and notebook caches
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-.DS_Store
-Thumbs.db
 
-# Delivery packages copied into the workspace (contents are integrated into the repo)
-interconnect_sprint19_entrega_*/
-
-# Large model artifacts and local outputs
+# Local outputs and model artifacts
 models/
 artifacts/
 *.pkl
 *.joblib
 *.parquet
 *.feather
+
+# Operating-system files
+.DS_Store
+Thumbs.db
